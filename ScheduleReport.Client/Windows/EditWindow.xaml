@@ -1,0 +1,61 @@
+﻿<Window x:Class="ScheduleReport.Client.Windows.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctrl="clr-namespace:ScheduleReport.Client"
+        xmlns:vm="clr-namespace:ScheduleReport.Client.ViewModels"
+        mc:Ignorable="d"
+        Title="Новый отчёт" Height="450" Width="400"
+        WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance vm:ReportViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
+        <!-- Название -->
+        <Label x:Name="lblJobTitle" Content="Название" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="160" FontWeight="Bold"/>
+        <TextBox x:Name="txtJobTitle" Text="{Binding Path=JobTitle}" HorizontalAlignment="Left" Height="23" Margin="175,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="195"/>
+        
+        <!-- Тип отчёта -->
+        <Label x:Name="lblReportType" Content="Тип отчёта" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="160" FontWeight="Bold"/>
+        <ComboBox x:Name="cmbReportType" SelectedItem="{Binding Path=ReportType}" IsReadOnly="True" IsEditable="True" Text="Выберите тип отчёта" HorizontalAlignment="Left" Margin="175,45,0,0" VerticalAlignment="Top" Width="195"/>
+        <!--<ComboBox ItemsSource="{Binding Path=PhonebookEntries}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Name"
+                  SelectedValue="{Binding Path=PhonebookEntry}" />-->
+        
+        <!-- Объект(ы) под наблюдением -->
+        <Label Content="Объект(ы) под наблюдением" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="372" FontWeight="Bold"/>
+        <ComboBox x:Name="cmbObjects" VerticalAlignment="Center" SelectionChanged="OnCbObjectsSelectionChanged" Height="24" Margin="10,112,14,273" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding Name}" VerticalAlignment="Center" Checked="OnCbObjectCheckBoxChecked" Unchecked="OnCbObjectCheckBoxChecked" Cursor="Hand"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock  x:Name="tbObjects" IsHitTestVisible="False" Text="Выберите объекты..." VerticalAlignment="Center" Margin="15,117,23,272" Height="25" />
+        
+        <!-- Дата первого отчёта -->
+        <Label x:Name="lblCreateDateTime" Content="Дата первого отчёта" HorizontalAlignment="Left" Margin="12,144,0,0" VerticalAlignment="Top" Width="358" FontWeight="Bold"/>
+        <DatePicker x:Name="dpCreateDateTime" SelectedDate="{Binding Path=StartTime}"  HorizontalAlignment="Left" Margin="12,175,0,0" VerticalAlignment="Top" Height="23"/>
+        <ctrl:TimeControl Value="{Binding StartTime1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="startTime" Margin="117,175,171,214" BorderThickness="1" BorderBrush="LightGray"/>
+        
+        <!-- Периодичность отчёта -->
+        <Label Content="Периодичность отчёта" HorizontalAlignment="Left" Margin="12,210,0,0" VerticalAlignment="Top" Width="158" FontWeight="Bold"/>
+        <ComboBox x:Name="cmbPeriodicityReport" SelectedItem="{Binding Path=PeriodicityReport}" IsReadOnly="True" IsEditable="True" Text="Выберите период отчёта" HorizontalAlignment="Left" Margin="175,214,0,0" VerticalAlignment="Top" Width="195"/>
+        
+        <Button Content="Сохранить" HorizontalAlignment="Left" Margin="10,389,0,0" VerticalAlignment="Top" Width="359" Click="Button_Click"/>
+
+        <!-- Параметры отчёта -->
+        <!--<TimePicker x:Name = "arrivalTimePicker" Header = "Arrival Time" Margin = "0,1"/>-->
+        <!--<wpfTool:DateTimePicker Height="20" Margin="12,273,180,125"/>-->
+
+
+        <!-- 
+Date / time of the first report
+Periodicity of the report (preset values)
+Report building parameters (depending on the type of report)
+        
+        -->
+    </Grid>
+</Window>

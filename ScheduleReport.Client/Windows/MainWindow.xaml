@@ -1,0 +1,29 @@
+﻿<Window x:Class="ScheduleReport.Client.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ScheduleReport.Client.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="400"
+        d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=True}"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <ListView x:Name="lstReports" HorizontalAlignment="Left" Height="358" Margin="10,51,0,0" VerticalAlignment="Top" Width="372">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Удалить" Click="MenuItem_Click" /> <!-- Command="{Binding RemoveItem}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}" /> -->
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=JobTitle}" Width="122px">Название</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ReportType}" Width="122px">Тип отчёта</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PeriodicityReport}" Width="123px">Период</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Создать" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="372" Height="33" Click="Button_Click"/>
+
+    </Grid>
+</Window>
